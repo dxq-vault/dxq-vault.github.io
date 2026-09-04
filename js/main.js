@@ -105,6 +105,80 @@
   }
 
   /* --------------------------------------------------------------------------
+     Motion: scroll progress, ambient cursor glow, card tilt
+     Static-site / GitHub Pages friendly (vanilla JS only)
+     -------------------------------------------------------------------------- */
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var finePointer = window.matchMedia('(pointer: fine)').matches;
+
+  if (!reduceMotion) {
+    var progressBar = document.querySelector('.scroll-progress__bar');
+    var hero = document.querySelector('.hero');
+    var tiltCards = document.querySelectorAll('.spectrum-card, .catalog-item, .service-card');
+
+    function updateScrollMotion() {
+      var doc = document.documentElement;
+      var max = doc.scrollHeight - window.innerHeight;
+      var ratio = max > 0 ? window.scrollY / max : 0;
+      if (progressBar) {
+        progressBar.style.transform = 'scaleX(' + Math.min(1, Math.max(0, ratio)) + ')';
+      }
+      if (hero) {
+        var h = Math.max(hero.offsetHeight, 1);
+        hero.style.setProperty('--scroll-y', String(Math.min(1, window.scrollY / h)));
+      }
+    }
+
+    window.addEventListener('scroll', updateScrollMotion, { passive: true });
+    updateScrollMotion();
+
+    if (finePointer) {
+      document.documentElement.classList.add('has-pointer-glow');
+
+      var glowX = 0.5;
+      var glowY = 0.3;
+      var targetX = glowX;
+      var targetY = glowY;
+      var glowRaf = 0;
+
+      function tickGlow() {
+        glowX += (targetX - glowX) * 0.12;
+        glowY += (targetY - glowY) * 0.12;
+        document.documentElement.style.setProperty('--glow-x', (glowX * 100).toFixed(2) + '%');
+        document.documentElement.style.setProperty('--glow-y', (glowY * 100).toFixed(2) + '%');
+        glowRaf = 0;
+      }
+
+      document.addEventListener(
+        'pointermove',
+        function (e) {
+          targetX = e.clientX / window.innerWidth;
+          targetY = e.clientY / window.innerHeight;
+          if (!glowRaf) glowRaf = requestAnimationFrame(tickGlow);
+        },
+        { passive: true }
+      );
+
+      tiltCards.forEach(function (card) {
+        card.classList.add('tilt-card');
+        card.addEventListener('pointermove', function (e) {
+          var rect = card.getBoundingClientRect();
+          var px = (e.clientX - rect.left) / rect.width;
+          var py = (e.clientY - rect.top) / rect.height;
+          card.style.setProperty('--tilt-x', ((0.5 - py) * 6).toFixed(2) + 'deg');
+          card.style.setProperty('--tilt-y', ((px - 0.5) * 8).toFixed(2) + 'deg');
+          card.style.setProperty('--shine-x', (px * 100).toFixed(1) + '%');
+          card.style.setProperty('--shine-y', (py * 100).toFixed(1) + '%');
+        });
+        card.addEventListener('pointerleave', function () {
+          card.style.setProperty('--tilt-x', '0deg');
+          card.style.setProperty('--tilt-y', '0deg');
+        });
+      });
+    }
+  }
+
+  /* --------------------------------------------------------------------------
      Close nav on Escape key
      -------------------------------------------------------------------------- */
   document.addEventListener('keydown', function (e) {

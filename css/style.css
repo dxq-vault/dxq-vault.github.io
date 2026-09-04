@@ -333,6 +333,8 @@ ul {
   background-size: 48px 48px;
   mask-image: radial-gradient(ellipse 70% 70% at 50% 40%, black, transparent);
   pointer-events: none;
+  transform: translateY(calc(var(--scroll-y, 0) * 40px));
+  will-change: transform;
 }
 
 .hero__content {
@@ -1309,4 +1311,113 @@ ul {
     opacity: 1;
     transform: none;
   }
+
+  .scroll-progress,
+  .circuit-bg,
+  .has-pointer-glow body::before {
+    display: none !important;
+  }
+
+  .tilt-card {
+    transform: none !important;
+  }
+}
+
+/* ==========================================================================
+   Motion layer — scroll progress, cursor glow, tilt cards, circuit etch
+   ========================================================================== */
+
+.circuit-bg {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.95;
+}
+
+.header {
+  z-index: 100;
+}
+
+main,
+footer {
+  position: relative;
+  z-index: 1;
+}
+
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  z-index: 200;
+  pointer-events: none;
+  background: transparent;
+}
+
+.scroll-progress__bar {
+  height: 100%;
+  width: 100%;
+  transform: scaleX(0);
+  transform-origin: left center;
+  background: linear-gradient(90deg, var(--accent), var(--accent-light));
+  box-shadow: 0 0 12px rgba(61, 191, 154, 0.45);
+  will-change: transform;
+}
+
+.has-pointer-glow body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(
+    480px circle at var(--glow-x, 50%) var(--glow-y, 30%),
+    rgba(20, 122, 101, 0.08),
+    transparent 55%
+  );
+}
+
+.hero {
+  --scroll-y: 0;
+}
+
+.tilt-card {
+  --tilt-x: 0deg;
+  --tilt-y: 0deg;
+  --shine-x: 50%;
+  --shine-y: 50%;
+  transform: perspective(900px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y));
+  transform-style: preserve-3d;
+  transition: transform 0.18s ease-out, border-color var(--transition), box-shadow var(--transition);
+  will-change: transform;
+}
+
+.tilt-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(
+    280px circle at var(--shine-x) var(--shine-y),
+    rgba(61, 191, 154, 0.16),
+    transparent 60%
+  );
+  transition: opacity 0.2s ease;
+}
+
+.tilt-card:hover::after {
+  opacity: 1;
+}
+
+.spectrum-card,
+.catalog-item,
+.service-card {
+  position: relative;
+  overflow: hidden;
 }
