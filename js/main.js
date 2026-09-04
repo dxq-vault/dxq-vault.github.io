@@ -1,18 +1,11 @@
 /**
  * dxq-lab — Main JavaScript
  * Lightweight interactions: navigation, scroll effects, reveal animations.
- * No external dependencies. No tracking.
+ * No external dependencies. No tracking. No external redirects.
  */
 
 (function () {
   'use strict';
-
-  /* --------------------------------------------------------------------------
-     CONFIG — Replace placeholder URLs with your actual links
-     -------------------------------------------------------------------------- */
-  const CONFIG = {
-    telegramUrl: 'https://t.me/strattr',
-  };
 
   /* --------------------------------------------------------------------------
      DOM Elements
@@ -23,16 +16,6 @@
   const navOverlay = document.querySelector('.nav-overlay');
   const navLinks = document.querySelectorAll('.nav__link, [data-scroll]');
   const revealElements = document.querySelectorAll('.reveal');
-  const telegramLinks = document.querySelectorAll('[data-telegram]');
-
-  /* --------------------------------------------------------------------------
-     Apply Telegram URLs from config
-     -------------------------------------------------------------------------- */
-  telegramLinks.forEach(function (link) {
-    link.href = CONFIG.telegramUrl;
-    link.setAttribute('rel', 'noopener noreferrer');
-    link.setAttribute('target', '_blank');
-  });
 
   /* --------------------------------------------------------------------------
      Header scroll state

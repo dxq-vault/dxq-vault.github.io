@@ -5,7 +5,7 @@
 (function () {
   'use strict';
 
-  var FAVICON_VERSION = '3';
+  var FAVICON_VERSION = '4';
 
   var head = document.head;
   if (!head) return;

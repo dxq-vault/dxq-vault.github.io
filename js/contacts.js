@@ -1,5 +1,6 @@
 /**
  * Renders contact details client-side (not present in page source for crawlers).
+ * No external redirects (Telegram / third-party sites).
  */
 (function () {
   'use strict';
@@ -20,8 +21,6 @@
     email: [0x74, 0x70, 0x65, 0x72, 0x68, 0x75, 0x6e, 0x6b, 0x6f, 0x76, 0x40, 0x79, 0x61, 0x6e, 0x64, 0x65, 0x78, 0x2e, 0x72, 0x75]
       .map(function (c) { return String.fromCharCode(c); })
       .join(''),
-    telegram: ['https:/', '/t.me/', 'strattr'].join(''),
-    telegramLabel: ['t.me/', 'strattr'].join(''),
   };
 
   var root = document.getElementById('contact-details');
@@ -44,10 +43,6 @@
       '<div class="contact-list__item">' +
         '<dt>Email</dt>' +
         '<dd><a href="mailto:' + DATA.email + '">' + DATA.email + '</a></dd>' +
-      '</div>' +
-      '<div class="contact-list__item">' +
-        '<dt>Telegram</dt>' +
-        '<dd><a href="' + DATA.telegram + '" target="_blank" rel="noopener noreferrer">' + DATA.telegramLabel + '</a></dd>' +
       '</div>' +
     '</dl>' +
     '<p class="contact-note">Расчётные реквизиты для оплаты предоставляются по запросу при заключении договора.</p>';

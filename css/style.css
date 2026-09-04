@@ -1,6 +1,6 @@
 /* ==========================================================================
    dxq-lab — Design System
-   Bold Contrast · Deep Black · Indigo Accent · Sharp Forms
+   Bold Contrast · Deep Black · Noble Jade / Nephrite Accent · Sharp Forms
    ========================================================================== */
 
 :root {
@@ -12,8 +12,9 @@
   --border-strong: #3f3f46;
   --text-primary: #ffffff;
   --text-muted: #a1a1aa;
-  --accent: #6366f1;
-  --accent-light: #818cf8;
+  /* Noble jade / nephrite (≈ Pantone Eden + Emerald) */
+  --accent: #147a65;
+  --accent-light: #3dbf9a;
   --accent-cyan: var(--accent);
   --accent-sky: var(--accent-light);
   --accent-indigo: var(--accent);
@@ -21,9 +22,9 @@
 
   /* Gradients */
   --gradient-primary: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
-  --gradient-glow: linear-gradient(135deg, rgba(99, 102, 241, 0.14) 0%, rgba(129, 140, 248, 0.08) 100%);
-  --gradient-hero: radial-gradient(ellipse 80% 60% at 50% -20%, rgba(99, 102, 241, 0.16), transparent),
-                   radial-gradient(ellipse 50% 40% at 85% 55%, rgba(99, 102, 241, 0.08), transparent);
+  --gradient-glow: linear-gradient(135deg, rgba(20, 122, 101, 0.16) 0%, rgba(61, 191, 154, 0.08) 100%);
+  --gradient-hero: radial-gradient(ellipse 80% 60% at 50% -20%, rgba(20, 122, 101, 0.18), transparent),
+                   radial-gradient(ellipse 50% 40% at 85% 55%, rgba(61, 191, 154, 0.08), transparent);
 
   /* Typography */
   --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -35,7 +36,7 @@
 
   /* Effects */
   --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.55);
-  --shadow-glow: 0 0 48px rgba(99, 102, 241, 0.22);
+  --shadow-glow: 0 0 48px rgba(20, 122, 101, 0.25);
   --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   --radius: 3px;
   --radius-lg: 4px;
@@ -190,7 +191,7 @@ ul {
   height: 8px;
   border-radius: var(--radius);
   background: var(--accent);
-  box-shadow: 0 0 14px rgba(99, 102, 241, 0.6);
+  box-shadow: 0 0 14px rgba(20, 122, 101, 0.6);
 }
 
 .nav {
@@ -276,12 +277,12 @@ ul {
 .btn--primary {
   background: var(--accent);
   color: #ffffff;
-  box-shadow: 0 4px 24px rgba(99, 102, 241, 0.4);
+  box-shadow: 0 4px 24px rgba(20, 122, 101, 0.4);
 }
 
 .btn--primary:hover {
   background: var(--accent-light);
-  box-shadow: 0 6px 32px rgba(99, 102, 241, 0.55);
+  box-shadow: 0 6px 32px rgba(20, 122, 101, 0.55);
   color: #ffffff;
 }
 
@@ -294,7 +295,7 @@ ul {
 .btn--ghost:hover {
   border-color: var(--accent);
   color: var(--accent-light);
-  background: rgba(99, 102, 241, 0.08);
+  background: rgba(20, 122, 101, 0.08);
 }
 
 .btn--sm {
@@ -350,8 +351,8 @@ ul {
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--accent-light);
-  background: rgba(99, 102, 241, 0.1);
-  border: 1px solid rgba(99, 102, 241, 0.35);
+  background: rgba(20, 122, 101, 0.1);
+  border: 1px solid rgba(20, 122, 101, 0.35);
   border-radius: var(--radius);
   margin-bottom: 1.5rem;
   animation: fadeInUp 0.6s ease both;
@@ -456,19 +457,27 @@ ul {
   gap: var(--gap);
 }
 
-/* Row 1: three equal cards */
-.services__grid .service-card:nth-child(1),
-.services__grid .service-card:nth-child(2),
-.services__grid .service-card:nth-child(3) {
+.services__grid--duo {
+  grid-template-columns: repeat(2, 1fr);
+  margin-top: clamp(2rem, 4vw, 3rem);
+}
+
+.services__grid--duo .service-card {
+  grid-column: auto !important;
+}
+
+/* Legacy 5-card span rules (unused when duo / ai-grid) */
+.services__grid:not(.services__grid--duo) .service-card:nth-child(1),
+.services__grid:not(.services__grid--duo) .service-card:nth-child(2),
+.services__grid:not(.services__grid--duo) .service-card:nth-child(3) {
   grid-column: span 2;
 }
 
-/* Row 2: two centered cards */
-.services__grid .service-card:nth-child(4) {
+.services__grid:not(.services__grid--duo) .service-card:nth-child(4) {
   grid-column: 2 / span 2;
 }
 
-.services__grid .service-card:nth-child(5) {
+.services__grid:not(.services__grid--duo) .service-card:nth-child(5) {
   grid-column: 4 / span 2;
 }
 
@@ -493,7 +502,7 @@ ul {
 
 .service-card:hover {
   transform: translateY(-4px);
-  border-color: rgba(99, 102, 241, 0.55);
+  border-color: rgba(20, 122, 101, 0.55);
   box-shadow: var(--shadow-glow);
 }
 
@@ -509,16 +518,16 @@ ul {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(99, 102, 241, 0.1);
-  border: 1px solid rgba(99, 102, 241, 0.25);
+  background: rgba(20, 122, 101, 0.1);
+  border: 1px solid rgba(20, 122, 101, 0.25);
   border-radius: var(--radius);
   margin-bottom: 1.25rem;
   transition: background var(--transition), border-color var(--transition);
 }
 
 .service-card:hover .service-card__icon {
-  background: rgba(99, 102, 241, 0.18);
-  border-color: rgba(99, 102, 241, 0.5);
+  background: rgba(20, 122, 101, 0.18);
+  border-color: rgba(20, 122, 101, 0.5);
 }
 
 .service-card__icon svg {
@@ -544,6 +553,257 @@ ul {
   line-height: 1.65;
 }
 
+.service-card__price {
+  position: relative;
+  z-index: 1;
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-subtle);
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--accent-light);
+  letter-spacing: -0.01em;
+}
+
+/* Catalog — detailed service entries */
+.catalog-notice {
+  max-width: 920px;
+  margin: 0 auto clamp(2rem, 4vw, 2.75rem);
+  padding: 1.25rem 1.5rem;
+  border: 1px solid var(--border-subtle);
+  border-left: 3px solid var(--accent);
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+}
+
+.catalog-notice p {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin: 0;
+}
+
+.catalog-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.catalog-list--sessions {
+  margin-top: clamp(2rem, 4vw, 2.75rem);
+}
+
+.catalog-item {
+  padding: clamp(1.5rem, 3vw, 2rem);
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.catalog-item:hover {
+  border-color: rgba(20, 122, 101, 0.4);
+  box-shadow: var(--shadow-glow);
+}
+
+.catalog-item__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.catalog-item__head .service-card__badge {
+  margin-bottom: 0;
+}
+
+.catalog-item__title {
+  font-size: clamp(1.05rem, 2vw, 1.2rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+}
+
+.catalog-item__lead {
+  font-size: 0.9375rem;
+  color: var(--text-muted);
+  line-height: 1.65;
+  margin-bottom: 1.25rem;
+}
+
+.catalog-meta {
+  display: grid;
+  gap: 0.875rem;
+  margin: 0;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.catalog-meta__row {
+  display: grid;
+  grid-template-columns: minmax(140px, 200px) 1fr;
+  gap: 0.75rem 1.25rem;
+}
+
+.catalog-meta__row dt {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent-light);
+  padding-top: 0.15rem;
+}
+
+.catalog-meta__row dd {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  line-height: 1.65;
+}
+
+@media (max-width: 640px) {
+  .catalog-meta__row {
+    grid-template-columns: 1fr;
+    gap: 0.35rem;
+  }
+}
+
+/* Price spectrums for AI grid */
+.spectrum-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: var(--gap);
+  margin-bottom: clamp(2.5rem, 5vw, 3.5rem);
+}
+
+.spectrum-card {
+  padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  border-top: 2px solid var(--accent);
+}
+
+.spectrum-card--micro {
+  border-top-color: var(--text-muted);
+}
+
+.spectrum-card--micro .spectrum-card__label {
+  color: var(--text-muted);
+}
+
+.spectrum-card__label {
+  display: inline-block;
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-light);
+  margin-bottom: 0.75rem;
+}
+
+.spectrum-card__title {
+  font-size: 1.0625rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.02em;
+}
+
+.spectrum-card__price {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.02em;
+}
+
+.spectrum-card__desc {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  line-height: 1.55;
+}
+
+@media (max-width: 1100px) {
+  .spectrum-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .spectrum-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .spectrum-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Price table — mentoring sessions */
+.price-table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  background: var(--bg-card);
+  margin-bottom: 0.5rem;
+}
+
+.price-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 560px;
+  font-size: 0.9375rem;
+}
+
+.price-table th,
+.price-table td {
+  padding: 1rem 1.25rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.price-table thead th {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-light);
+  background: rgba(20, 122, 101, 0.06);
+}
+
+.price-table__hint {
+  display: block;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+}
+
+.price-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.price-table tbody tr:hover td {
+  background: rgba(20, 122, 101, 0.04);
+}
+
+.price-table__value {
+  font-weight: 700;
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+
+/* AI solutions grid */
+.ai-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--gap);
+}
+
 .service-card__badge {
   position: relative;
   z-index: 1;
@@ -553,8 +813,8 @@ ul {
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--accent-light);
-  background: rgba(99, 102, 241, 0.12);
-  border: 1px solid rgba(99, 102, 241, 0.35);
+  background: rgba(20, 122, 101, 0.12);
+  border: 1px solid rgba(20, 122, 101, 0.35);
   padding: 0.25rem 0.5rem;
   border-radius: var(--radius);
   margin-bottom: 0.875rem;
@@ -562,8 +822,8 @@ ul {
 
 .service-card__badge--b2c {
   color: #ffffff;
-  background: rgba(99, 102, 241, 0.22);
-  border-color: rgba(129, 140, 248, 0.45);
+  background: rgba(20, 122, 101, 0.22);
+  border-color: rgba(61, 191, 154, 0.45);
 }
 
 /* ==========================================================================
@@ -615,7 +875,7 @@ ul {
 .workflow-step:hover .workflow-step__number {
   background: var(--accent);
   color: #ffffff;
-  box-shadow: 0 0 28px rgba(99, 102, 241, 0.45);
+  box-shadow: 0 0 28px rgba(20, 122, 101, 0.45);
 }
 
 .workflow-step__title {
@@ -655,7 +915,7 @@ ul {
   content: "";
   position: absolute;
   inset: -50%;
-  background: conic-gradient(from 180deg at 50% 50%, transparent, rgba(99, 102, 241, 0.07), transparent, rgba(129, 140, 248, 0.06), transparent);
+  background: conic-gradient(from 180deg at 50% 50%, transparent, rgba(20, 122, 101, 0.07), transparent, rgba(61, 191, 154, 0.06), transparent);
   animation: rotate 20s linear infinite;
 }
 
@@ -913,18 +1173,15 @@ ul {
    ========================================================================== */
 
 @media (max-width: 1024px) {
-  .services__grid {
+  .services__grid,
+  .services__grid--duo {
     grid-template-columns: repeat(2, 1fr);
   }
 
   .services__grid .service-card:nth-child(n) {
-    grid-column: auto;
-  }
-
-  .services__grid .service-card:nth-child(5) {
-    grid-column: 1 / -1;
-    max-width: calc(50% - var(--gap) / 2);
-    justify-self: center;
+    grid-column: auto !important;
+    max-width: none;
+    justify-self: stretch;
   }
 
   .workflow__timeline {
@@ -972,7 +1229,8 @@ ul {
     display: none;
   }
 
-  .services__grid {
+  .services__grid,
+  .services__grid--duo {
     grid-template-columns: 1fr;
   }
 
